@@ -5,5 +5,6 @@ Cargo.lock
 **.md
 **.json
 **.yml
-.devontainer/**
+Dockerfile
+.devcontainer/**
 z2p.ipynb
