@@ -60,7 +60,7 @@ WORKDIR /vscode
 RUN mkdir -p /vscode/target && chown vscode:vscode /vscode/target
 
 # development utilities
-RUN mold -run cargo install cargo-edit cargo-expand cargo-watch && \
+RUN mold -run cargo install cargo-edit cargo-expand cargo-watch typos-cli && \
     mold -run cargo install evcxr_jupyter --no-default-features && \
     evcxr_jupyter --install && \
     mold -rn cargo install --git https://github.com/ttys3/git-cz.git && \

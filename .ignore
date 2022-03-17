@@ -1,0 +1,10 @@
+.dockerignore
+.gitignore
+LICENSE
+Cargo.lock
+**.md
+**.json
+**.yml
+Dockerfile
+.devcontainer/**
+z2p.ipynb

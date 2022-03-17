@@ -9,4 +9,4 @@ studing [Zero To Production In Rust](https://algoluca.gumroad.com/l/zero2prod)
 
 ## Coding
 
-- `cargo watch -x check -x fmt -x test --ignore **.{md,json,yml}`
+- `cargo watch -x check -x fmt -x test -x typos`
