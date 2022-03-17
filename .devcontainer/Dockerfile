@@ -60,6 +60,6 @@ WORKDIR /vscode
 RUN mkdir -p /vscode/target && chown vscode:vscode /vscode/target
 
 # development utilities
-RUN mold -run cargo install cargo-edit && \
+RUN mold -run cargo install cargo-edit cargo-expand cargo-watch && \
     mold -run cargo install evcxr_jupyter --no-default-features && \
     evcxr_jupyter --install
