@@ -63,7 +63,6 @@ RUN mkdir -p /vscode/target && chown vscode:vscode /vscode/target
 RUN mold -run cargo install cargo-edit cargo-expand cargo-watch typos-cli && \
     mold -run cargo install evcxr_jupyter --no-default-features && \
     evcxr_jupyter --install && \
-    mold -rn cargo install --git https://github.com/ttys3/git-cz.git && \
-    git config --global alias.cc 'cz commit' && \
-    git config --global core.editor vim && \
-    gh config set editor vim
+    mold -run cargo install --git https://github.com/ttys3/git-cz.git && \
+    gh config set editor vim && \
+    mold -run cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres

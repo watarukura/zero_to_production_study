@@ -8,3 +8,4 @@ Cargo.lock
 Dockerfile
 .devcontainer/**
 z2p.ipynb
+**.sql

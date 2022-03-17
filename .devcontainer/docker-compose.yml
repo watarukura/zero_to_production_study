@@ -11,6 +11,19 @@ services:
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
     working_dir: /vscode
+    environment:
+      - DATABASE_URL=postgres://postgres:password@postgres:5432/newsletter
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=newsletter
+      - TZ="Asia/Tokyo"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../data:/var/lib/postgresql/data
 volumes:
   # The volume for cargo build
   target:
