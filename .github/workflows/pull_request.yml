@@ -17,7 +17,7 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
-          components: rustfmt, clippy, typos
+          components: rustfmt, clippy
 
       # https://github.com/actions/cache/blob/master/examples.md#rust---cargo
       - name: Cache cargo files
@@ -52,6 +52,5 @@ jobs:
         with:
           command: test
 
-      - name: Run typo check
-        run: |
-          typos
+      - name: Run typos
+        uses: crate-ci/typos@v1.4.1
