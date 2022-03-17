@@ -9,4 +9,18 @@ studing [Zero To Production In Rust](https://algoluca.gumroad.com/l/zero2prod)
 
 ## Coding
 
-- `cargo watch -x check -x fmt -x test -x typos`
+- automatic lint and format and test
+    - `cargo watch -x check -x fmt -x test`
+- typo check
+    - `typos`
+- use commitizen
+    - `git cz commit`
+
+## Migration
+
+- use sqlx
+
+```shell
+sqlx database create
+sqlx migrate run
+```
