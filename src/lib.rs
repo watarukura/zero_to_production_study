@@ -5,11 +5,19 @@ use std::net::TcpListener;
 use actix_web::dev::Server;
 use actix_web::{web, App, HttpResponse, HttpServer};
 
+use serde::Deserialize;
+
 async fn health_check() -> HttpResponse {
     HttpResponse::Ok().finish()
 }
 
-async fn subscribe() -> HttpResponse {
+#[derive(serde::Deserialize)]
+struct FormData {
+    email: String,
+    name: String,
+}
+
+async fn subscribe(_form: web::Form<FormData>) -> HttpResponse {
     HttpResponse::Ok().finish()
 }
 
