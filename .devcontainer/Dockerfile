@@ -50,7 +50,8 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
 RUN rustup component add rust-src && \
     rustup component add rust-analysis && \
     rustup component add rls && \
-    rustup component add rustfmt
+    rustup component add rustfmt && \
+    rustup component add clippy
 
 # vscode
 RUN groupadd -g 1000 vscode && \
@@ -65,4 +66,5 @@ RUN mold -run cargo install cargo-edit cargo-expand cargo-watch typos-cli && \
     evcxr_jupyter --install && \
     mold -run cargo install --git https://github.com/ttys3/git-cz.git && \
     gh config set editor vim && \
-    mold -run cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres
+    mold -run cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres && \
+    cargo install cargo-tomlfmt
