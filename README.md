@@ -24,3 +24,9 @@ studing [Zero To Production In Rust](https://algoluca.gumroad.com/l/zero2prod)
 sqlx database create
 sqlx migrate run
 ```
+
+## Diff
+
+- use postgres on devcontaner
+  - postgres host is "postgres"
+    - not "127.0.0.1"
