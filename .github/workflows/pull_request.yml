@@ -62,8 +62,6 @@ jobs:
     services:
       postgres:
         image: postgres:latest
-        ports:
-          - "5432:5432"
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
@@ -120,8 +118,6 @@ jobs:
     services:
       postgres:
         image: postgres:latest
-        ports:
-          - "5432:5432"
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
