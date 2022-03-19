@@ -4,7 +4,7 @@ on:
   pull_request:
 
 env:
-  DATABASE_URL: postgres://postgres:password@postgres:5432/newsletter
+  DATABASE_URL: postgres://postgres:password@localhost:5432/newsletter
 
 jobs:
   cleanup:
@@ -103,7 +103,6 @@ jobs:
 
       - name: migrate db
         run: |
-          sudo apt-get install libpq-dev -y
           cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres
           sqlx database create
           sqlx migrate run
@@ -161,7 +160,6 @@ jobs:
       
       - name: migrate db
         run: |
-          sudo apt-get install libpq-dev -y
           cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres
           sqlx database create
           sqlx migrate run
