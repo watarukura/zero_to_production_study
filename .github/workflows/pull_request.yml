@@ -194,6 +194,7 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
+          components: cargo-tomlfmt
 
       # https://github.com/actions/cache/blob/master/examples.md#rust---cargo
       - name: Cache cargo files
