@@ -10,11 +10,11 @@ studing [Zero To Production In Rust](https://algoluca.gumroad.com/l/zero2prod)
 ## Coding
 
 - automatic lint and format and test
-    - `cargo watch -x check -x fmt -x test`
+  - `cargo watch -x check -x fmt -x test`
 - typo check
-    - `typos`
+  - `typos`
 - use commitizen
-    - `git cz commit`
+  - `git cz commit`
 
 ## Migration
 
@@ -30,3 +30,8 @@ sqlx migrate run
 - use postgres on devcontaner
   - postgres host is "postgres"
     - not "127.0.0.1"
+
+## CI
+
+- use postgres:latest container with test and lint
+  - see <https://gist.github.com/LukeMathWalker/85894aa1ccfe23b25437f953ab551638>
