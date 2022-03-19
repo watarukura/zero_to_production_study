@@ -67,6 +67,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
+          POSTGRES_DB: newsletter
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -95,10 +96,17 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-
+      
       - name: delete mold for CI
         run: |
           rm -f .cargo/config.toml
+
+      - name: migrate db
+        run: |
+          sudo apt-get install libpq-dev -y
+          cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres
+          sqlx database create
+          sqlx migrate run
 
       - name: Run lint
         uses: actions-rs/cargo@v1
@@ -118,6 +126,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
+          POSTGRES_DB: newsletter
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -149,6 +158,13 @@ jobs:
       - name: delete mold for CI
         run: |
           rm -f .cargo/config.toml
+      
+      - name: migrate db
+        run: |
+          sudo apt-get install libpq-dev -y
+          cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres
+          sqlx database create
+          sqlx migrate run
 
       - name: Run test
         uses: actions-rs/cargo@v1
