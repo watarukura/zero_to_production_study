@@ -194,7 +194,6 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
-          components: cargo-tomlfmt
 
       # https://github.com/actions/cache/blob/master/examples.md#rust---cargo
       - name: Cache cargo files
@@ -213,7 +212,6 @@ jobs:
           rm -f .cargo/config.toml
 
       - name: Check Cargo.toml format
-        uses: actions-rs/cargo@v1
-        with:
-          command: tomlfmt
-          args: --dryrun
+        run: |
+          cargo install cargo-tomlfmt
+          cargo tomlfmt --dryrun
