@@ -34,7 +34,7 @@ uuid = { version = "0.8.1", features = ["v4"] }
 
 [dependencies.sqlx]
 default-features = false
-features = ["runtime-actix-rustls", "macros", "postgres", "uuid", "chrono", "migrate"]
+features = ["runtime-actix-rustls", "macros", "postgres", "uuid", "chrono", "migrate", "offline"]
 version = "0.5.7"
 
 [dev-dependencies]
