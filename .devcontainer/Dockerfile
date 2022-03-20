@@ -39,11 +39,14 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
     curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key \
       | gpg --dearmor \
       | tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null && \
+    curl -1sLf 'https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.deb.sh' \
+      | bash && \
     apt-get update && \
     apt-get install -y \
       gh \
       fish \
-      tig && \
+      tig \
+      lefthook && \
     rm -rf /var/lib/apt/lists/*
 
 # use from rust-analyzer
@@ -68,4 +71,5 @@ RUN mold -run cargo install cargo-edit cargo-expand cargo-watch typos-cli && \
     mold -run cargo install --git https://github.com/ttys3/git-cz.git && \
     gh config set editor vim && \
     mold -run cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres && \
-    mold -run cargo install cargo-tomlfmt cargo-udeps
+    mold -run cargo install cargo-tomlfmt cargo-udeps && \
+    lefthook install
