@@ -10,7 +10,7 @@ studing [Zero To Production In Rust](https://algoluca.gumroad.com/l/zero2prod)
 ## Coding
 
 - automatic lint and format and test
-  - `cargo watch -x check -x fmt -x test`
+  - `cargo watch -x clippy -x fmt -x test`
 - typo check
   - `typos`
 - use commitizen
