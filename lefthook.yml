@@ -16,3 +16,7 @@ pre-commit:
       run: cargo clippy -- -D warnings
     typos:
       run: typos
+    udeps:
+      glob: "*.rs"
+      run: cargo +nightly udeps
+      
