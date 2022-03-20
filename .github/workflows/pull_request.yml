@@ -215,3 +215,25 @@ jobs:
         run: |
           cargo install cargo-tomlfmt
           cargo tomlfmt --dryrun
+
+  superlinter:
+    runs-on: ubuntu-latest
+    needs:
+      - cleanup
+    steps:
+      - name: Setup code
+        uses: actions/checkout@v2
+
+      - name: Lint Code Base
+        uses: github/super-linter@slim-v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_DOCKERFILE_HADOLINT: true
+          VALIDATE_EDITORCONFIG: true
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_JSON: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_SQL: true
+          VALIDATE_YAML: true
