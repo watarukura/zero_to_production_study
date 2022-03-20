@@ -1,3 +1,4 @@
+---
 name: Lint and Test
 
 on:
@@ -103,7 +104,8 @@ jobs:
 
       - name: migrate db
         run: |
-          cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres
+          cargo install sqlx-cli \
+            --version=0.5.7 --no-default-features --features postgres
           sqlx database create
           sqlx migrate run
 
@@ -179,3 +181,59 @@ jobs:
 
       - name: Run typos
         uses: crate-ci/typos@v1.4.1
+
+  tomlformat:
+    runs-on: ubuntu-latest
+    needs:
+      - cleanup
+    steps:
+      - name: Setup code
+        uses: actions/checkout@v2
+
+      - name: Setup Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      # https://github.com/actions/cache/blob/master/examples.md#rust---cargo
+      - name: Cache cargo files
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: delete mold for CI
+        run: |
+          rm -f .cargo/config.toml
+
+      - name: Check Cargo.toml format
+        run: |
+          cargo install cargo-tomlfmt
+          cargo tomlfmt --dryrun
+
+  superlinter:
+    runs-on: ubuntu-latest
+    needs:
+      - cleanup
+    steps:
+      - name: Setup code
+        uses: actions/checkout@v2
+
+      - name: Lint Code Base
+        uses: github/super-linter/slim@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_JSON: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_SQL: true
+          VALIDATE_YAML: true
