@@ -6,6 +6,7 @@ on:
 
 env:
   DATABASE_URL: postgres://postgres:password@localhost:5432/newsletter
+  APP_ENVIRONMENT: ci
 
 jobs:
   cleanup:
