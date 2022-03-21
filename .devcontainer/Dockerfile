@@ -41,6 +41,8 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
       | tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null && \
     curl -1sLf 'https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.deb.sh' \
       | bash && \
+    curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v0.6.0/aqua-installer \
+      | bash && \
     apt-get update && \
     apt-get install -y \
       gh \
@@ -65,11 +67,10 @@ WORKDIR /vscode
 RUN mkdir -p /vscode/target && chown vscode:vscode /vscode/target
 
 # development utilities
-RUN mold -run cargo install cargo-edit cargo-expand cargo-watch typos-cli && \
+RUN mold -run cargo install cargo-edit cargo-expand cargo-watch && \
     mold -run cargo install evcxr_jupyter --no-default-features && \
     evcxr_jupyter --install && \
     mold -run cargo install --git https://github.com/ttys3/git-cz.git && \
     gh config set editor vim && \
     mold -run cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres && \
-    mold -run cargo install cargo-tomlfmt cargo-udeps && \
-    lefthook install
+    mold -run cargo install cargo-tomlfmt cargo-udeps
