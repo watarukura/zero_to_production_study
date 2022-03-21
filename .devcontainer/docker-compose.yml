@@ -13,8 +13,10 @@ services:
     working_dir: /vscode
     environment:
       - DATABASE_URL=postgres://postgres:password@postgres:5432/newsletter
+      - APP_ENVIRONMENT=local
   postgres:
-    image: postgres:latest
+    image: circleci/postgres:9.6-bullseye-ram
+    shm_size: 256m
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
@@ -22,8 +24,6 @@ services:
       - TZ="Asia/Tokyo"
     ports:
       - "5432:5432"
-    volumes:
-      - ../data:/var/lib/postgresql/data
 volumes:
   # The volume for cargo build
   target:
