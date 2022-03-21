@@ -1,1 +1,11 @@
 target/
+.env
+tests/
+Dockerfile
+scripts/
+migrations/
+.devcontainer/
+.github/
+.vscode/
+data/
+doc/

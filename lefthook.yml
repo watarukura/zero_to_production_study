@@ -19,4 +19,11 @@ pre-commit:
     udeps:
       glob: "*.rs"
       run: cargo +nightly udeps
-      
+    actionlint:
+      glob: "pull_request.yml"
+      run: actionlint
+post-merge:
+  commands:
+    setup:
+      run: |
+        set -gx PATH "$HOME/.local/share/aquaproj-aqua/bin" $PATH

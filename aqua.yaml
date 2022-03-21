@@ -1,0 +1,10 @@
+---
+# aqua - Declarative CLI Version Manager
+# https://aquaproj.github.io/
+registries:
+- type: standard
+  ref: v1.9.0 # renovate: depName=aquaproj/aqua-registry
+
+packages:
+- name: crate-ci/typos@v1.5.0
+- name: rhysd/actionlint@v1.6.10

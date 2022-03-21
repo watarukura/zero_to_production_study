@@ -11,8 +11,13 @@ studing [Zero To Production In Rust](https://algoluca.gumroad.com/l/zero2prod)
 
 - automatic lint and format and test
   - `cargo watch -x clippy -x fmt -x test`
+  - use .ignore for ignore files
+- use aqua for install dev utils
+  - typos
+  - actionlint
 - typo check
   - `typos`
+  - use _typos.toml
 - use commitizen
   - `git cz commit`
 - pre-commit hook with lefthook
@@ -31,6 +36,12 @@ sqlx migrate run
 - use postgres on devcontaner
   - postgres host is "postgres"
     - not "127.0.0.1"
+  - use circleci/postgres:9.6-bullseye-ram
+    - on memory
+    - docker stop and clear state
+- use [gcr.io/distroless/static](https://github.com/GoogleContainerTools/distroless/blob/main/base/README.md)
+  - size down & secure image
+- use [aqua](https://aquaproj.github.io/docs/tutorial-basics/quick-start)
 
 ## CI
 
