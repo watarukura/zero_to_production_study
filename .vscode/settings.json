@@ -21,5 +21,6 @@
         }
     },
     "files.autoSave": "afterDelay",
-    "editor.formatOnPaste": true
+    "editor.formatOnPaste": true,
+    "terminal.integrated.shell.linux": "/usr/bin/fish"
 }

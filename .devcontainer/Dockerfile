@@ -74,5 +74,3 @@ RUN mold -run cargo install cargo-edit cargo-expand cargo-watch && \
     gh config set editor vim && \
     mold -run cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres && \
     mold -run cargo install cargo-tomlfmt cargo-udeps
-
-CMD ["/usr/bin/fish"]
