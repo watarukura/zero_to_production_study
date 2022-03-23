@@ -15,7 +15,7 @@ services:
       - DATABASE_URL=postgres://postgres:password@postgres:5432/newsletter
       - APP_ENVIRONMENT=local
   postgres:
-    image: circleci/postgres:9.6-bullseye-ram
+    image: circleci/postgres:13.5-bullseye-ram
     shm_size: 256m
     environment:
       - POSTGRES_USER=postgres
