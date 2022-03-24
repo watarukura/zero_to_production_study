@@ -13,7 +13,7 @@ pre-commit:
       run: cargo tomlfmt --dryrun
     clippy:
       glob: "*.rs"
-      run: cargo clippy -- -D warnings
+      run: cargo clippy
     typos:
       run: typos
     udeps:
