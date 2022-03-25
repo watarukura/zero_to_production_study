@@ -22,5 +22,11 @@
     },
     "files.autoSave": "afterDelay",
     "editor.formatOnPaste": true,
-    "terminal.integrated.shell.linux": "/usr/bin/fish"
+    "terminal.integrated.defaultProfile.linux": "fish",
+    "terminal.integrated.profiles.linux": {
+        "fish": {
+            "path": "/usr/bin/fish",
+            "args": []
+        }
+    }
 }
