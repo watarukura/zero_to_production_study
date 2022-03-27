@@ -22,3 +22,14 @@ pre-commit:
     actionlint:
       glob: "pull_request.yml"
       run: actionlint
+# lefthook.yml
+
+setup:
+  parallel: false
+  commands:
+    fish:
+      run: cp /vscode/scripts/path.fish ~/.config/fish/conf.d/
+    aqua:
+      run: aqua install
+    db:
+      run: sqlx database create && sqlx migrate run

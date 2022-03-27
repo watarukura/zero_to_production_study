@@ -9,9 +9,11 @@ studing [Zero To Production In Rust](https://algoluca.gumroad.com/l/zero2prod)
 
 ## Coding
 
+- start
+  - `lefthook run setup`
 - automatic lint and format and test
   - `cargo watch -x clippy -x fmt -x test`
-  - use .ignore for ignore files
+  - use .ignore for ignore files for watch
 - use aqua for install dev utils
   - typos
   - actionlint
