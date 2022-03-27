@@ -15,9 +15,7 @@ RUN apt-get update && \
     zlib1g-dev \
     pkg-config \
     vim \
-    curl \
-    libzmq3-dev \
-    jupyter-notebook
+    curl
 
 # install mold
 ENV mold_version=v1.1
@@ -29,12 +27,8 @@ RUN git clone --branch "$mold_version" --depth 1 https://github.com/rui314/mold.
     mv /mold/mold-wrapper.so /usr/bin/mold-wrapper.so && \
     make clean
 
-# install gh and fish
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-      | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
-      | tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
-    echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' \
+# install development utilities
+RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' \
       | tee /etc/apt/sources.list.d/shells:fish:release:3.list && \
     curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key \
       | gpg --dearmor \
@@ -43,11 +37,17 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
       | bash && \
     curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v0.6.0/aqua-installer \
       | bash && \
+    curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc \
+      | gpg --dearmor -o /usr/share/keyrings/postgresql-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/postgresql-keyring.gpg] http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main" \
+      | tee /etc/apt/sources.list.d/postgresql.list && \
     apt-get update && \
     apt-get install -y \
-      gh \
+      libzmq3-dev \
+      jupyter-notebook \
       fish \
       tig \
+      postgresql-13 \
       lefthook && \
     rm -rf /var/lib/apt/lists/*
 
@@ -66,11 +66,10 @@ USER vscode
 WORKDIR /vscode
 RUN mkdir -p /vscode/target && chown vscode:vscode /vscode/target
 
-# development utilities
+# install development utilities
 RUN mold -run cargo install cargo-edit cargo-expand cargo-watch && \
     mold -run cargo install evcxr_jupyter --no-default-features && \
     evcxr_jupyter --install && \
     mold -run cargo install --git https://github.com/ttys3/git-cz.git && \
-    gh config set editor vim && \
     mold -run cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres && \
     mold -run cargo install cargo-tomlfmt cargo-udeps
