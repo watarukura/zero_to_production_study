@@ -23,6 +23,7 @@ pub struct TestApp {
     pub address: String,
     pub db_pool: PgPool,
     pub email_server: MockServer,
+    pub port: u16,
 }
 
 impl TestApp {
@@ -46,7 +47,7 @@ pub async fn spawn_app() -> TestApp {
     let configuration = {
         let mut c = get_configuration().expect("Failed to read configuration.");
         // Use a different dataabse for each test case
-        c.database.database_name = Uuid::new_v4().to_string();
+        c.database.database_name = format!("test-{}", Uuid::new_v4());
         // Use a random OS port
         c.application.port = 0;
         c.email_client.base_url = email_server.uri();
@@ -58,11 +59,12 @@ pub async fn spawn_app() -> TestApp {
     let application = Application::build(configuration.clone())
         .await
         .expect("Failed to build application");
-    let address = format!("http://127.0.0.1:{}", application.port());
+    let application_port = application.port();
     let _ = tokio::spawn(application.run_until_stopped());
 
     TestApp {
-        address,
+        address: format!("http://localhost:{}", application_port),
+        port: application_port,
         db_pool: get_connection_pool(&configuration.database),
         email_server,
     }
