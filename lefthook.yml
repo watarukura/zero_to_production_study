@@ -16,20 +16,23 @@ pre-commit:
       run: cargo clippy
     typos:
       run: typos
-    udeps:
-      glob: "*.rs"
-      run: cargo +nightly udeps
+    # udeps:
+    #   glob: "*.rs"
+    #   run: cargo +nightly udeps
     actionlint:
       glob: "pull_request.yml"
       run: actionlint
-# lefthook.yml
 
 setup:
   parallel: false
   commands:
     fish:
-      run: cp /vscode/scripts/path.fish ~/.config/fish/conf.d/
+      run: cp /vscode/tools/path.fish ~/.config/fish/conf.d/
     aqua:
       run: aqua install
     db:
+      run: cp /vscode/tools/.pgpass ~/.pgpass && chmod 0600 ~/.pgpass && /vscode/tools/drop_databases.bash
+    migrate:
       run: sqlx database create && sqlx migrate run
+    gh:
+      run: mkdir -p /vscode/.config/gh && cp /vscode/tools/config.yml /vscode/.config/gh/config.yml
