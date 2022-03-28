@@ -119,3 +119,28 @@ async fn subscribe_sends_a_confirmation_email_with_link() {
 
     assert_eq!(confirmation_links.html, confirmation_links.plain_text);
 }
+
+// Error Handling Test
+// #[tokio::test]
+// async fn subscribe_fails_if_there_is_a_fatal_dataabse_error() {
+//     let app = spawn_app().await;
+//     let body = "name=le%20guin&email=ursula_le_guin%40gmail.com";
+
+//     Mock::given(path("/email"))
+//         .and(method("POST"))
+//         .respond_with(ResponseTemplate::new(200))
+//         .mount(&app.email_server)
+//         .await;
+
+//     sqlx::query!("ALTER TABLE subscriptions DROP COLUMN email;",)
+//         .execute(&app.db_pool)
+//         .await
+//         .unwrap();
+
+//     app.post_subscriptions(body.into()).await;
+
+//     let email_request = &app.email_server.received_requests().await.unwrap()[0];
+//     let confirmation_links = app.get_confirmation_links(email_request);
+
+//     assert_eq!(confirmation_links.html, confirmation_links.plain_text);
+// }
