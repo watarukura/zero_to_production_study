@@ -23,6 +23,13 @@ studing [Zero To Production In Rust](https://algoluca.gumroad.com/l/zero2prod)
 - use commitizen
   - `git cz commit`
 - pre-commit hook with lefthook
+- setup with lefthook
+  - `lefthook run setup`
+    - db create and migrate run
+    - aqua install
+    - test databases clear
+    - fish config
+- use circleci/postgres:13.5-bullseye-ram container
 
 ## Migration
 
