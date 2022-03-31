@@ -3,16 +3,16 @@ pre-commit:
   parallel: true
   commands:
     test:
-      glob: "*.rs"
+      glob: "**/*.rs"
       run: cargo test
     fmt:
-      glob: "*.rs"
+      glob: "**/*.rs"
       run: cargo fmt --all
     tomlfmt:
       glob: "Cargo.toml"
       run: cargo tomlfmt
     clippy:
-      glob: "*.rs"
+      glob: "**/*.rs"
       run: cargo clippy
     typos:
       run: typos
@@ -20,7 +20,7 @@ pre-commit:
     #   glob: "*.rs"
     #   run: cargo +nightly udeps
     actionlint:
-      glob: "pull_request.yml"
+      glob: ".github/workflows/**.yml"
       run: actionlint
 
 setup:
