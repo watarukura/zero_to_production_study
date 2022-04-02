@@ -42,6 +42,8 @@ sqlx migrate run
 
 ## Diff
 
+- use mold on devcontainer with Rust
+  - see <https://purton.tech/blog/faster-rust-incremental-builds/>
 - use postgres on devcontaner
   - postgres host is "postgres"
     - not "127.0.0.1"
