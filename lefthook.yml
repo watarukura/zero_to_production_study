@@ -36,3 +36,11 @@ setup:
       run: sqlx database create && sqlx migrate run
     gh:
       run: mkdir -p /vscode/.config/gh && cp /vscode/tools/config.yml /vscode/.config/gh/config.yml
+
+test:
+  parallel: false
+  commands:
+    db:
+      run: cp /vscode/tools/.pgpass ~/.pgpass && chmod 0600 ~/.pgpass && /vscode/tools/drop_databases.bash
+    test:
+      run: cargo test
