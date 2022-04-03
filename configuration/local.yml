@@ -5,3 +5,4 @@ application:
 database:
   host: "postgres"
   require_ssl: false
+redis_uri: "redis://redis:6379"
