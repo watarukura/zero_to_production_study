@@ -1,5 +1,4 @@
 //! src/lib.rs
-use crate::utils::e500;
 use std::fs::Metadata;
 
 pub mod authentication;
