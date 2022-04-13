@@ -24,5 +24,6 @@
     "mutantdino.resourcemonitor",
     "ms-toolsai.jupyter"
   ],
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "postCreateCommand": "lefthook run setup"
 }

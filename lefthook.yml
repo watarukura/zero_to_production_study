@@ -27,7 +27,7 @@ setup:
   parallel: false
   commands:
     fish:
-      run: cp /vscode/tools/path.fish ~/.config/fish/conf.d/
+      run: mkdir -p ~/.config/fish/conf.d/ && cp /vscode/tools/path.fish ~/.config/fish/conf.d/
     aqua:
       run: aqua install
     db:
