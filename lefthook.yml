@@ -27,20 +27,22 @@ setup:
   parallel: false
   commands:
     fish:
-      run: cp /vscode/tools/path.fish ~/.config/fish/conf.d/
+      run: cp tools/path.fish ~/.config/fish/conf.d/
     aqua:
       run: aqua install
     db:
-      run: cp /vscode/tools/.pgpass ~/.pgpass && chmod 0600 ~/.pgpass && /vscode/tools/drop_databases.bash
+      run: cp tools/.pgpass ~/.pgpass && chmod 0600 ~/.pgpass && tools/drop_databases.bash
     migrate:
       run: sqlx database create && sqlx migrate run
     gh:
-      run: mkdir -p /vscode/.config/gh && cp /vscode/tools/config.yml /vscode/.config/gh/config.yml
+      run: mkdir -p ~/.config/gh && cp tools/config.yml ~/.config/gh/config.yml
+    git:
+      run: cp .gitconfig  ~/
 
 test:
   parallel: false
   commands:
     db:
-      run: cp /vscode/tools/.pgpass ~/.pgpass && chmod 0600 ~/.pgpass && /vscode/tools/drop_databases.bash
+      run: tools/drop_databases.bash
     test:
       run: cargo test
