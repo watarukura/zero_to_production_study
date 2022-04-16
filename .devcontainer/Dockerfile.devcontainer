@@ -1,4 +1,4 @@
-FROM rust:1.59.0-slim-bullseye
+FROM rust:1.60.0-slim-bullseye
 
 # install dependencies for build mold 
 RUN apt-get update && \
@@ -28,12 +28,7 @@ RUN git clone --branch "$mold_version" --depth 1 https://github.com/rui314/mold.
     make clean
 
 # install development utilities
-RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' \
-      | tee /etc/apt/sources.list.d/shells:fish:release:3.list && \
-    curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key \
-      | gpg --dearmor \
-      | tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null && \
-    curl -1sLf 'https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.deb.sh' \
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.deb.sh' \
       | bash && \
     curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v0.6.0/aqua-installer \
       | bash && \
@@ -44,8 +39,6 @@ RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3
     apt-get update && \
     apt-get install -y \
       libzmq3-dev \
-      jupyter-notebook \
-      fish \
       tig \
       postgresql-13 \
       lefthook && \
@@ -61,15 +54,13 @@ RUN rustup component add rust-src && \
 
 # vscode
 RUN groupadd -g 1000 vscode && \
-    useradd -m -s /bin/bash -u 1000 -g 1000 vscode
-USER vscode
-WORKDIR /vscode
-RUN mkdir -p /vscode/target && chown vscode:vscode /vscode/target
+    useradd -m -s /bin/bash -u 1000 -g 1000 vscode && \
+    mkdir -p /vscode/target && chown -R vscode:vscode /vscode
+# USER vscode
+# WORKDIR /vscode
 
 # install development utilities
 RUN mold -run cargo install cargo-edit cargo-expand cargo-watch && \
-    mold -run cargo install evcxr_jupyter --no-default-features && \
-    evcxr_jupyter --install && \
     mold -run cargo install --git https://github.com/ttys3/git-cz.git && \
     mold -run cargo install sqlx-cli --version=0.5.7 --no-default-features --features postgres && \
     mold -run cargo install cargo-tomlfmt cargo-udeps

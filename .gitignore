@@ -10,3 +10,7 @@
 
 # postgres
 /data
+
+.ssh
+.vscode-server
+.gitconfig
