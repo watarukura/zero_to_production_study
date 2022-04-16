@@ -43,6 +43,6 @@ test:
   parallel: false
   commands:
     db:
-      run: cp tools/.pgpass ~/.pgpass && chmod 0600 ~/.pgpass && /vscode/tools/drop_databases.bash
+      run: tools/drop_databases.bash
     test:
       run: cargo test
