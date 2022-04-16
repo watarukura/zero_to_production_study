@@ -56,8 +56,8 @@ RUN rustup component add rust-src && \
 RUN groupadd -g 1000 vscode && \
     useradd -m -s /bin/bash -u 1000 -g 1000 vscode && \
     mkdir -p /vscode/target && chown -R vscode:vscode /vscode
-# USER vscode
-# WORKDIR /vscode
+USER vscode
+WORKDIR /vscode
 
 # install development utilities
 RUN mold -run cargo install cargo-edit cargo-expand cargo-watch && \
