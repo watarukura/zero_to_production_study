@@ -41,15 +41,15 @@ impl TestApp {
             .expect("Failed to execute request.")
     }
 
-    pub async fn post_newsletters(&self, body: serde_json::Value) -> reqwest::Response {
-        self.api_client
-            .post(&format!("{}/newsletters", &self.address))
-            .basic_auth(&self.test_user.username, Some(&self.test_user.password))
-            .json(&body)
-            .send()
-            .await
-            .expect("Failed to execute request.")
-    }
+    // pub async fn post_newsletters(&self, body: serde_json::Value) -> reqwest::Response {
+    //     self.api_client
+    //         .post(&format!("{}/newsletters", &self.address))
+    //         .basic_auth(&self.test_user.username, Some(&self.test_user.password))
+    //         .json(&body)
+    //         .send()
+    //         .await
+    //         .expect("Failed to execute request.")
+    // }
 
     pub async fn post_login<Body>(&self, body: &Body) -> reqwest::Response
     where
@@ -94,6 +94,10 @@ impl TestApp {
             .expect("Failed to execute request")
     }
 
+    pub async fn get_change_password_html(&self) -> String {
+        self.get_change_password().await.text().await.unwrap()
+    }
+
     pub async fn post_change_password<Body>(&self, body: &Body) -> reqwest::Response
     where
         Body: serde::Serialize,
@@ -106,8 +110,25 @@ impl TestApp {
             .expect("Failed to execute request")
     }
 
-    pub async fn get_change_password_html(&self) -> String {
-        self.get_change_password().await.text().await.unwrap()
+    pub async fn post_publish_newsletter(&self, body: &serde_json::Value) -> reqwest::Response {
+        self.api_client
+            .post(&format!("{}/admin/newsletters", &self.address))
+            .json(&body)
+            .send()
+            .await
+            .expect("Failed to execute request.")
+    }
+
+    pub async fn get_publish_newsletter(&self) -> reqwest::Response {
+        self.api_client
+            .get(&format!("{}/admin/newsletters", &self.address))
+            .send()
+            .await
+            .expect("Failed to execute request")
+    }
+
+    pub async fn get_publish_newsletter_html(&self) -> String {
+        self.get_publish_newsletter().await.text().await.unwrap()
     }
 
     pub async fn post_logout(&self) -> reqwest::Response {
@@ -155,7 +176,7 @@ pub async fn spawn_app() -> TestApp {
         .unwrap();
 
     let test_app = TestApp {
-        address: format!("http://localhost:{}", application_port),
+        address: format!("http://127.0.0.1:{}", application_port),
         port: application_port,
         db_pool: get_connection_pool(&configuration.database),
         email_server,
@@ -203,6 +224,14 @@ impl TestUser {
         .execute(pool)
         .await
         .expect("Failed to create test users.");
+    }
+
+    pub async fn login(&self, app: &TestApp) {
+        let login_body = serde_json::json!({
+            "username": self.username,
+            "password": self.password
+        });
+        app.post_login(&login_body).await;
     }
 }
 
